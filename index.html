@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Vil du på date?</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..600,100&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+/* Layout: a soft, pillowy love-letter card floating over blurred pastel clouds; each step swaps the letter. Deliberately single (light) theme. */
+:root {
+  --ground: #fdf0f2;
+  --cloud-pink: #ffd3dc;
+  --cloud-peach: #ffe2cc;
+  --cloud-lilac: #e6d9ff;
+  --card: rgba(255, 252, 250, .82);
+  --ink: #7b4558;
+  --muted: #a98591;
+  --rose: #ef9fb0;
+  --rose-deep: #e3879b;
+  --lilac: #cdb9f3;
+  --tile: #fff0f3;
+  --line: #f6dde3;
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --body: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--body);
+  display: grid; place-items: center;
+  padding-block: 32px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+body::before {
+  content: ""; position: fixed; inset: -10%; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(38% 34% at 18% 22%, var(--cloud-pink), transparent 70%),
+    radial-gradient(34% 30% at 85% 18%, var(--cloud-lilac), transparent 70%),
+    radial-gradient(40% 36% at 78% 85%, var(--cloud-peach), transparent 70%),
+    radial-gradient(30% 28% at 12% 88%, var(--cloud-lilac), transparent 70%);
+  filter: blur(30px);
+  animation: breathe 18s ease-in-out infinite alternate;
+}
+@keyframes breathe { to { transform: translate(2%, -2%) scale(1.05); } }
+.sky { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+.sky span { position: absolute; top: -40px; animation: drift linear infinite; opacity: .55; }
+@keyframes drift { to { transform: translateY(115vh) rotate(160deg); } }
+.confetti { position: fixed; top: -20px; width: 10px; height: 10px; border-radius: 50%; pointer-events: none; z-index: 5; animation: fall 2.8s ease-in forwards; }
+@keyframes fall { to { transform: translateY(110vh) rotate(360deg); opacity: .15; } }
+
+.card {
+  position: relative; z-index: 1;
+  width: 100%; max-width: 500px;
+  background: var(--card);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, .9);
+  border-radius: 36px;
+  box-shadow: 0 30px 70px -20px rgba(214, 130, 155, .35), 0 8px 24px -12px rgba(214, 130, 155, .25);
+  padding: 28px 30px 34px;
+  box-sizing: border-box;
+  text-align: center;
+  display: grid; gap: 20px; justify-items: center;
+}
+.letterhead {
+  justify-self: stretch;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  font-size: 12px; letter-spacing: .14em; text-transform: lowercase; color: var(--muted);
+  text-align: left; line-height: 1.7;
+}
+.letterhead b { color: var(--ink); font-weight: 700; }
+.stamp {
+  width: 54px; height: 62px; flex: none;
+  background: linear-gradient(160deg, #ffd6df, #f6b8c7); color: #fff;
+  display: grid; place-items: center; align-content: center; gap: 1px;
+  font: 600 20px var(--display); letter-spacing: 0;
+  border-radius: 6px;
+  transform: rotate(5deg);
+  -webkit-mask: radial-gradient(circle 3.5px at 3.5px 3.5px, transparent 98%, #000) -3.5px -3.5px / 8.5px 8.5px;
+          mask: radial-gradient(circle 3.5px at 3.5px 3.5px, transparent 98%, #000) -3.5px -3.5px / 8.5px 8.5px;
+}
+.stamp small { font: 700 8px var(--body); letter-spacing: .12em; text-transform: uppercase; opacity: .9; }
+
+.tile {
+  width: 120px; height: 120px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 60px; line-height: 1;
+  background: radial-gradient(circle at 35% 30%, #fff, var(--tile) 70%);
+  box-shadow: 0 14px 30px -12px rgba(230, 140, 165, .5), inset 0 -6px 14px rgba(239, 159, 176, .18);
+  animation: float 4.5s ease-in-out infinite;
+}
+@keyframes float { 50% { transform: translateY(-6px); } }
+.tile.hot { background: radial-gradient(circle at 35% 30%, #fff4f6, #ffc9d4 75%); }
+.tile.plain { background: none; box-shadow: none; width: auto; height: auto; font-size: 48px; }
+h1 { margin: 0; font: 600 clamp(25px, 6.6vw, 32px)/1.25 var(--display); font-variation-settings: "SOFT" 100; text-wrap: balance; }
+h1.shout { text-transform: lowercase; }
+h1 em { font-style: italic; color: var(--rose-deep); }
+p { margin: 0; color: var(--muted); line-height: 1.65; font-size: 15px; }
+p.ps { font-style: italic; font-size: 14px; max-width: 40ch; }
+
+.btn {
+  font: 700 16px var(--body); letter-spacing: .02em;
+  border: 0; border-radius: 999px; cursor: pointer;
+  padding: 15px 36px; color: #fff;
+  background: linear-gradient(180deg, #f5b3c1, var(--rose-deep));
+  box-shadow: 0 12px 24px -10px rgba(227, 135, 155, .75);
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+.btn:hover { filter: brightness(1.04); box-shadow: 0 16px 28px -10px rgba(227, 135, 155, .85); }
+.btn:focus-visible, .food:focus-visible, .field:focus-visible { outline: 3px solid var(--lilac); outline-offset: 3px; }
+.btn.deep { background: linear-gradient(180deg, #d9c8f7, #b9a0ea); box-shadow: 0 12px 24px -10px rgba(170, 140, 230, .75); }
+.btn.wide { width: 100%; }
+.btn:disabled { opacity: .5; cursor: not-allowed; filter: none; }
+.btn-no { background: linear-gradient(180deg, #e7dcfb, var(--lilac)); color: #6c5596; box-shadow: 0 10px 22px -10px rgba(170, 140, 230, .7); padding: 12px 26px; font-size: 15px; }
+.btn-no:hover { filter: none; }
+.btn-no.loose { position: fixed; z-index: 4; transition: left .32s cubic-bezier(.2, .8, .3, 1), top .32s cubic-bezier(.2, .8, .3, 1); }
+
+.answers { display: flex; gap: 22px; align-items: center; justify-content: center; flex-wrap: wrap; min-height: 64px; }
+.btn-yes, .btn-yes:hover { transform: none; }
+
+form { width: 100%; display: grid; gap: 18px; text-align: left; }
+label { font-weight: 700; font-size: 14px; display: grid; gap: 8px; padding-left: 6px; }
+.field {
+  font: 600 16px var(--body); color: var(--ink);
+  background: #fff; border: 1.5px solid var(--line); border-radius: 18px;
+  padding: 14px 16px; width: 100%; box-sizing: border-box; min-height: 52px;
+  box-shadow: inset 0 2px 6px rgba(239, 159, 176, .08);
+  appearance: none; -webkit-appearance: none;
+}
+.field:disabled { background: #fff8f9; color: var(--muted); }
+select.field { background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 22px) 50%, calc(100% - 16px) 50%; background-size: 6px 6px; background-repeat: no-repeat; }
+
+.foods { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.food {
+  position: relative;
+  font: 700 14px var(--body); color: var(--ink);
+  background: #fff; border: 1.5px solid transparent; border-radius: 24px;
+  padding: 20px 8px 16px; cursor: pointer;
+  display: grid; gap: 10px; justify-items: center;
+  box-shadow: 0 10px 22px -14px rgba(214, 130, 155, .45);
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+.food span { font-size: 36px; line-height: 1; }
+.food:hover { transform: translateY(-3px); }
+.food[aria-pressed="true"] { border-color: var(--rose); background: #fff2f5; }
+.food[aria-pressed="true"]::after {
+  content: "♥"; position: absolute; top: -7px; right: -7px;
+  width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--rose); color: #fff; font-size: 12px;
+}
+
+.hearts { color: var(--rose); letter-spacing: .5em; font-size: 18px; }
+.receipt { width: 100%; background: #fff6f8; border-radius: 22px; padding: 16px 18px; display: grid; gap: 8px; font-size: 15px; color: var(--muted); box-sizing: border-box; }
+.receipt b { color: var(--ink); font-weight: 700; }
+.wrap { display: grid; justify-items: center; width: 100%; }
+
+.pop { animation: pop .5s cubic-bezier(.2, 1.2, .4, 1) both; }
+@keyframes pop { from { opacity: .001; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: none; } }
+@media (max-width: 420px) { .card { padding: 22px 18px 26px; border-radius: 30px; } .foods { grid-template-columns: repeat(2, 1fr); } .tile { width: 100px; height: 100px; font-size: 50px; } }
+@media (prefers-reduced-motion: reduce) { .sky, .confetti { display: none; } .pop, .tile, body::before { animation: none; } }
+.kinds { grid-template-columns: repeat(3, 1fr); }
+.food small { font: 400 12px var(--body); color: var(--muted); }
+.link-btn { background: none; border: 0; font: 600 14px var(--body); color: var(--muted); cursor: pointer; padding: 6px 10px; border-radius: 999px; }
+.link-btn:hover { color: var(--ink); }
+@media (max-width: 420px) { .kinds { grid-template-columns: 1fr; } .kinds .food { grid-template-columns: auto 1fr; justify-items: start; text-align: left; align-items: center; padding: 14px 18px; column-gap: 14px; } .kinds .food span { grid-row: span 2; } }
+</style>
+</head>
+<body>
+
+
+<div class="sky" id="sky" aria-hidden="true"></div>
+<div class="wrap">
+  <main class="card" id="app" aria-live="polite"></main>
+</div>
+
+<script>
+// Ret teksterne her for at personliggøre siden.
+const CONFIG = {
+  // Hours offered per day type, in half-hour steps (end included).
+  weekdayHours: [17, 21],
+  weekendHours: [12, 21],
+  // Private ntfy topic the home server listens on (date-bro on the server).
+  ntfyTopic: "dato-8AEEoW2IyB3Ski4YAbqtkQO8VOT8",
+  // Ids and option names must match KATEGORIER in date-bro.js on the server.
+  kinds: {
+    mad: {
+      emo: "🍽️", name: "Mad", note: "vi spiser noget godt",
+      question: "hvad er vi i humør til? 🍽️✨", sub: "vælg din vibe (der er ingen forkerte svar. undtagen ingenting)",
+      options: [
+        { emo: "🍕", name: "Pizza" }, { emo: "🍣", name: "Sushi" }, { emo: "🍔", name: "Burgere" },
+        { emo: "🍝", name: "Pasta" }, { emo: "🌮", name: "Tacos" }, { emo: "🍜", name: "Ramen" }
+      ]
+    },
+    aktivitet: {
+      emo: "🎳", name: "Aktivitet", note: "vi laver noget sjovt",
+      question: "hvad skal vi finde på? 🎳", sub: "jeg advarer: jeg er konkurrencemenneske",
+      options: [
+        { emo: "⛳", name: "Minigolf" }, { emo: "🎳", name: "Bowling" }, { emo: "☕", name: "Gåtur & kaffe" },
+        { emo: "🖼️", name: "Museum" }, { emo: "⛸️", name: "Skøjter" }, { emo: "🔐", name: "Escape room" }
+      ]
+    },
+    film: {
+      emo: "🎬", name: "Movie night", note: "film og snacks",
+      question: "hvilken slags film? 🍿", sub: "jeg står for snacks",
+      options: [
+        { emo: "💕", name: "Romcom" }, { emo: "👻", name: "Gyser" }, { emo: "💥", name: "Action" },
+        { emo: "😂", name: "Komedie" }, { emo: "🧸", name: "Animation" }, { emo: "🍿", name: "Du vælger" }
+      ]
+    }
+  }
+};
+
+const NO_LINES = [
+  "hov", "forkert knap", "seriøst?", "nej er udsolgt", "knappen er på ferie 🏝️", "prøv den lyserøde", "🙈",
+  "okay nu er det bare pinligt", "nej (virker ikke)", "fang mig hvis du kan", "for langsom 🐌", "nope",
+  "er du sikker?", "helt sikker??", "tænk dig om", "jeg flytter mig bare", "du gætter forkert",
+  "404 nej ikke fundet", "prøv igen om 100 år", "tsk tsk", "nej tak til nej", "😤", "jeg er hurtigere end dig",
+  "jeg kan gøre det her hele dagen", "ja-knappen savner dig", "glem det", "hvorfor er du sådan", "nej er ikke en mulighed",
+  "nice try", "lol nej", "📵 knap ikke tilgængelig", "jeg løber altså"
+];
+const RANDOM_EMOJI = ["🧽", "🪑", "🧦", "🪣", "🧸", "🪀", "🧲", "🪥", "🧻", "🪴", "🎈", "🧯", "🔦", "🧺", "🪞", "📎", "🧢", "🪩", "🛟", "🪜"];
+const state = { step: "ask", date: "", time: "", kind: "", pick: "", sent: "", noCount: 0 };
+const app = document.getElementById("app");
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+function tomorrowISO() {
+  const d = new Date(); d.setDate(d.getDate() + 1);
+  const p = n => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+}
+function timesFor(iso) {
+  if (!iso) return [];
+  const [y, m, d] = iso.split("-").map(Number);
+  const wd = new Date(y, m - 1, d).getDay();
+  const [from, to] = (wd === 0 || wd === 6) ? CONFIG.weekendHours : CONFIG.weekdayHours;
+  const out = [];
+  for (let h = from; h <= to; h += 0.5) out.push(`${String(Math.floor(h)).padStart(2, "0")}:${h % 1 ? "30" : "00"}`);
+  return out;
+}
+function prettyDate(iso) {
+  if (!iso) return "";
+  const [y, m, d] = iso.split("-").map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString("da-DK", { weekday: "long", day: "numeric", month: "long" });
+}
+
+// Ambient petals and hearts
+(function sky() {
+  const sky = document.getElementById("sky");
+  const bits = ["♡", "✿", "♥", "☁", "✧"];
+  for (let i = 0; i < 16; i++) {
+    const s = document.createElement("span");
+    s.textContent = bits[i % bits.length];
+    s.style.left = Math.random() * 100 + "vw";
+    s.style.fontSize = (10 + Math.random() * 12) + "px";
+    s.style.color = i % 2 ? "#e9a9b8" : "#c8b2f0";
+    s.style.animationDuration = (14 + Math.random() * 16) + "s";
+    s.style.animationDelay = (-Math.random() * 30) + "s";
+    sky.appendChild(s);
+  }
+})();
+
+function confetti(n = 70) {
+  const colors = ["#f5b3c1", "#d9c8f7", "#ffe2cc", "#fbd0dc", "#c9e7f5", "#fff0b8"];
+  for (let i = 0; i < n; i++) {
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.background = colors[i % colors.length];
+    c.style.animationDelay = Math.random() * .6 + "s";
+    c.style.animationDuration = (2 + Math.random() * 1.6) + "s";
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 4500);
+  }
+}
+
+function clearLooseNo() { document.querySelectorAll(".btn-no.loose").forEach(b => b.remove()); }
+
+const STAMPS = { ask: "♥", yay: "!", when: "?", kind: "✦", pick: "✧", done: "✓", booked: "♥" };
+function head() {
+  return `<div class="letterhead" aria-hidden="true">
+    <div>fra <b>mig</b><br>til <b>dig</b> ♡</div>
+    <div class="stamp">${STAMPS[state.step] || "♥"}<small>porto</small></div>
+  </div>`;
+}
+
+function render() {
+  if (fleeCleanup) fleeCleanup();
+  clearLooseNo();
+  app.classList.remove("pop"); void app.offsetWidth; app.classList.add("pop");
+  const s = state.step;
+
+  if (s === "ask") {
+    app.innerHTML = head() + `
+      <div class="tile" aria-hidden="true">🐶</div>
+      <h1>vil du gå på <em>date</em> med mig?</h1>
+      <div class="answers">
+        <button class="btn btn-yes" id="yes" type="button">JA ♥</button>
+        <button class="btn btn-no" id="no" type="button">nej</button>
+      </div>`;
+    wireNo();
+    document.getElementById("yes").onclick = () => { state.step = "yay"; confetti(); render(); };
+  }
+
+  else if (s === "yay") {
+    app.innerHTML = head() + `
+      <div class="tile hot" aria-hidden="true">${RANDOM_EMOJI[Math.floor(Math.random() * RANDOM_EMOJI.length)]}</div>
+      <h1 class="shout">Vent, sagde du faktisk ja?? 😭</h1>
+      <p>jeg havde ærligt talt forberedt mig på et nej 😅</p>
+      <button class="btn deep" id="go" type="button">okay okay! →</button>`;
+    document.getElementById("go").onclick = () => { state.step = "when"; render(); };
+  }
+
+  else if (s === "when") {
+    app.innerHTML = head() + `
+      <div class="tile plain" aria-hidden="true">🗓️</div>
+      <h1>så… hvornår er du fri?</h1>
+      <form id="whenForm">
+        <label for="date">Vælg en dag 📆
+          <input class="field" type="date" id="date" min="${tomorrowISO()}" value="${esc(state.date)}" required>
+        </label>
+        <label for="time">Hvad tid? ⏰
+          <select class="field" id="time" required></select>
+        </label>
+        <button class="btn wide" id="setDate" type="submit" disabled>sæt datoen! ♥</button>
+      </form>`;
+    const date = document.getElementById("date"), time = document.getElementById("time"), btn = document.getElementById("setDate");
+    const fillTimes = () => {
+      const keep = time.value || state.time;
+      const opts = timesFor(date.value);
+      time.disabled = !opts.length;
+      time.innerHTML = `<option value="">${opts.length ? "Vælg et tidspunkt…" : "Vælg en dag først"}</option>` +
+        opts.map(t => `<option value="${t}" ${keep === t ? "selected" : ""}>${t}</option>`).join("");
+    };
+    const check = () => { btn.disabled = !(date.value && time.value); };
+    date.oninput = () => { fillTimes(); check(); };
+    time.onchange = check;
+    fillTimes(); check();
+    document.getElementById("whenForm").onsubmit = e => {
+      e.preventDefault();
+      if (!date.value || !time.value) return;
+      state.date = date.value; state.time = time.value; state.step = "kind"; render();
+    };
+  }
+
+  else if (s === "kind") {
+    app.innerHTML = head() + `
+      <h1>hvad skal vi lave? ✨</h1>
+      <p>vælg en retning, så tager vi detaljerne bagefter</p>
+      <div class="foods kinds">
+        ${Object.entries(CONFIG.kinds).map(([id, k]) => `<button type="button" class="food" data-kind="${id}" aria-pressed="${state.kind === id}"><span>${k.emo}</span>${esc(k.name)}<small>${esc(k.note)}</small></button>`).join("")}
+      </div>`;
+    app.querySelectorAll("[data-kind]").forEach(b => b.onclick = () => {
+      if (state.kind !== b.dataset.kind) state.pick = "";
+      state.kind = b.dataset.kind;
+      app.querySelectorAll("[data-kind]").forEach(x => x.setAttribute("aria-pressed", x === b));
+      setTimeout(() => { state.step = "pick"; render(); }, 350);
+    });
+  }
+
+  else if (s === "pick") {
+    const k = CONFIG.kinds[state.kind];
+    app.innerHTML = head() + `
+      <h1>${esc(k.question)}</h1>
+      <p>${esc(k.sub)}</p>
+      <div class="foods">
+        ${k.options.map(o => `<button type="button" class="food" data-pick="${esc(o.name)}" aria-pressed="${state.pick === o.name}"><span>${o.emo}</span>${esc(o.name)}</button>`).join("")}
+      </div>
+      <button class="link-btn" id="back" type="button">← vælg noget andet</button>`;
+    document.getElementById("back").onclick = () => { state.step = "kind"; render(); };
+    app.querySelectorAll("[data-pick]").forEach(b => b.onclick = () => {
+      state.pick = b.dataset.pick;
+      app.querySelectorAll("[data-pick]").forEach(x => x.setAttribute("aria-pressed", x === b));
+      setTimeout(() => { state.step = "done"; render(); }, 450);
+    });
+  }
+
+  else if (s === "done") {
+    app.innerHTML = head() + `
+      <h1>godt du ikke sagde nej. vær klar kl. ${esc(state.time)}, jeg henter dig 🚗</h1>
+      <div class="hearts" aria-hidden="true">♥♥♥♥♥</div>
+      <button class="btn wide" id="accept" type="button">ok, jeg accepterer 💝</button>`;
+    document.getElementById("accept").onclick = () => { state.step = "booked"; confetti(110); render(); sendBooking(); };
+  }
+
+  else if (s === "booked") {
+    const k = CONFIG.kinds[state.kind];
+    const o = k.options.find(x => x.name === state.pick);
+    app.innerHTML = head() + `
+      <div class="tile" aria-hidden="true">💌</div>
+      <h1>det er officielt en <em>date</em></h1>
+      <div class="receipt">
+        <div>📅 <b>${esc(prettyDate(state.date))}</b></div>
+        <div>⏰ <b>kl. ${esc(state.time)}</b></div>
+        <div>${o ? o.emo : k.emo} <b>${esc(k.name)}: ${esc(state.pick)}</b></div>
+      </div>
+      <p id="sendStatus">${statusText()}</p>`;
+  }
+}
+
+function statusText() {
+  if (state.sent === "ok") return "✓ jeg har fået besked, og den står allerede i min kalender";
+  if (state.sent === "fail") return "hov, beskeden kom ikke igennem 🙈 tag et screenshot og send det til mig";
+  return "sender til mig…";
+}
+
+// Sends the booking once to the private ntfy topic; the home server picks it up
+// from there and puts it in the calendar. Falls back to "send a screenshot".
+async function sendBooking() {
+  if (state.sent) return;
+  state.sent = "sending";
+  try {
+    const res = await fetch("https://ntfy.sh/" + CONFIG.ntfyTopic, {
+      method: "POST",
+      body: JSON.stringify({ dato: state.date, tid: state.time, kategori: state.kind, valg: state.pick }),
+    });
+    state.sent = res.ok ? "ok" : "fail";
+  } catch {
+    state.sent = "fail";
+  }
+  const el = document.getElementById("sendStatus");
+  if (el) el.textContent = statusText();
+}
+
+// The "no" button runs away from the pointer: when the cursor (or a finger) gets close,
+// it slides further away in the opposite direction, and escapes along the walls when cornered.
+let fleeCleanup = null;
+function wireNo() {
+  if (fleeCleanup) fleeCleanup();
+  const no = document.getElementById("no");
+  const yes = document.getElementById("yes");
+  const RADIUS = 120, PAD = 16;
+  let pos = null, lastLine = 0;
+
+  const loosen = () => {
+    if (pos) return;
+    const r = no.getBoundingClientRect();
+    pos = { x: r.left, y: r.top };
+    // Leave an invisible stand-in so the yes button keeps its spot on the left.
+    const ghost = document.createElement("span");
+    ghost.setAttribute("aria-hidden", "true");
+    ghost.style.cssText = `display:inline-block;width:${r.width}px;height:${r.height}px;visibility:hidden`;
+    no.replaceWith(ghost);
+    no.style.left = pos.x + "px"; no.style.top = pos.y + "px";
+    document.body.appendChild(no);
+    no.classList.add("loose");
+  };
+
+  const tease = () => {
+    if (Date.now() - lastLine < 500) return;
+    lastLine = Date.now();
+    state.noCount++;
+    let next;
+    do { next = NO_LINES[Math.floor(Math.random() * NO_LINES.length)]; } while (next === no.textContent);
+    no.textContent = next;
+  };
+
+  const flee = (px, py, force) => {
+    if (!pos && !force) {
+      const r = no.getBoundingClientRect();
+      if (Math.hypot(r.left + r.width / 2 - px, r.top + r.height / 2 - py) > RADIUS) return;
+    }
+    loosen();
+    const w = no.offsetWidth, h = no.offsetHeight;
+    const cx = pos.x + w / 2, cy = pos.y + h / 2;
+    let dx = cx - px, dy = cy - py;
+    const dist = Math.hypot(dx, dy) || 1;
+    if (!force && dist > RADIUS) return;
+    dx /= dist; dy /= dist;
+    const push = force ? 170 : RADIUS - dist + 70;
+    const maxX = window.innerWidth - w - PAD, maxY = window.innerHeight - h - PAD;
+    let nx = pos.x + dx * push, ny = pos.y + dy * push;
+    // Cornered against a wall: slide along it, away from the pointer, instead of getting stuck.
+    if (nx < PAD || nx > maxX) { nx = Math.min(Math.max(nx, PAD), maxX); ny += (dy >= 0 ? 1 : -1) * push; }
+    if (ny < PAD || ny > maxY) { ny = Math.min(Math.max(ny, PAD), maxY); nx += (dx >= 0 ? 1 : -1) * push; }
+    // Still trapped in a corner: run to the far side of the screen.
+    nx = Math.min(Math.max(nx, PAD), maxX); ny = Math.min(Math.max(ny, PAD), maxY);
+    if (Math.hypot(nx + w / 2 - px, ny + h / 2 - py) < RADIUS * .6) {
+      nx = px < window.innerWidth / 2 ? maxX : PAD;
+      ny = py < window.innerHeight / 2 ? maxY : PAD;
+    }
+    pos = { x: nx, y: ny };
+    no.style.left = nx + "px"; no.style.top = ny + "px";
+    tease();
+  };
+
+  const onMove = e => { if (e.pointerType === "mouse") flee(e.clientX, e.clientY, false); };
+  const onDown = e => { e.preventDefault(); flee(e.clientX, e.clientY, true); };
+  const onClick = e => {
+    e.preventDefault();
+    const r = no.getBoundingClientRect();
+    flee(r.left + r.width / 2 - 1, r.top + r.height / 2 - 1, true);
+  };
+  const onResize = () => {
+    if (!pos) return;
+    pos.x = Math.min(pos.x, window.innerWidth - no.offsetWidth - PAD);
+    pos.y = Math.min(pos.y, window.innerHeight - no.offsetHeight - PAD);
+    no.style.left = pos.x + "px"; no.style.top = pos.y + "px";
+  };
+
+  document.addEventListener("pointermove", onMove);
+  no.addEventListener("pointerdown", onDown);
+  no.addEventListener("click", onClick);
+  window.addEventListener("resize", onResize);
+  fleeCleanup = () => {
+    document.removeEventListener("pointermove", onMove);
+    window.removeEventListener("resize", onResize);
+    fleeCleanup = null;
+  };
+}
+
+render();
+</script>
+
+</body>
+</html>
