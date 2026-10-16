@@ -466,6 +466,8 @@ async function sendBooking() {
     const res = await fetch("https://ntfy.sh/" + CONFIG.ntfyTopic, {
       method: "POST",
       body: JSON.stringify({ dato: state.date, tid: state.time, kategori: state.kind, valg: state.pick }),
+      // Never leave the guest stuck on "sealing the envelope…": after 12 s fall back to the screenshot ask.
+      signal: AbortSignal.timeout ? AbortSignal.timeout(12000) : undefined,
     });
     state.sent = res.ok ? "ok" : "fail";
   } catch {
