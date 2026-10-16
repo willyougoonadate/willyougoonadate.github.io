@@ -401,7 +401,7 @@ function render() {
   else if (s === "kind") {
     app.innerHTML = head() + `
       <h1>what's the vibe? ✨</h1>
-      <p>food, fun or a film? I've got plans for all three 😏</p>
+      <p>all options come with me. sorry about that 😌</p>
       <div class="foods kinds">
         ${Object.entries(CONFIG.kinds).map(([id, k]) => `<button type="button" class="food" data-kind="${id}" aria-pressed="${state.kind === id}"><span>${k.emo}</span>${esc(k.name)}<small>${esc(k.note)}</small></button>`).join("")}
       </div>`;
