@@ -291,7 +291,40 @@ function head() {
   </div>`;
 }
 
+// Where "back" leads from each step. Nothing after "booked": the date is already sent.
+const BACK = { when: "yay", kind: "when", pick: "kind", done: "pick" };
+
+// Every step is a browser history entry, so the phone's back gesture steps back too.
+function syncHistory() {
+  try {
+    if (history.state?.step === state.step) return;
+    if (!history.state) history.replaceState({ step: state.step }, "");
+    else history.pushState({ step: state.step }, "");
+  } catch {}
+}
+window.addEventListener("popstate", e => {
+  const to = e.state?.step;
+  if (!to) return;
+  // Once booked, stay on the confirmation instead of reopening the form.
+  if (state.step === "booked") { try { history.pushState({ step: "booked" }, ""); } catch {} return; }
+  // A stale entry (e.g. after a reload) may point at a step whose choices are gone.
+  const ready = { ask: true, yay: true, when: true, kind: !!state.time, pick: !!state.kind, done: !!state.pick };
+  state.step = ready[to] ? to : "ask";
+  render();
+});
+
+function addBack() {
+  const to = BACK[state.step];
+  if (!to) return;
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "link-btn"; b.textContent = "← tilbage";
+  b.onclick = () => { state.step = to; render(); };
+  app.appendChild(b);
+}
+
 function render() {
+  syncHistory();
+  queueMicrotask(addBack);
   if (fleeCleanup) fleeCleanup();
   clearLooseNo();
   app.classList.remove("pop"); void app.offsetWidth; app.classList.add("pop");
@@ -372,9 +405,7 @@ function render() {
       <p>${esc(k.sub)}</p>
       <div class="foods">
         ${k.options.map(o => `<button type="button" class="food" data-pick="${esc(o.name)}" aria-pressed="${state.pick === o.name}"><span>${o.emo}</span>${esc(o.name)}</button>`).join("")}
-      </div>
-      <button class="link-btn" id="back" type="button">← vælg noget andet</button>`;
-    document.getElementById("back").onclick = () => { state.step = "kind"; render(); };
+      </div>`;
     app.querySelectorAll("[data-pick]").forEach(b => b.onclick = () => {
       state.pick = b.dataset.pick;
       app.querySelectorAll("[data-pick]").forEach(x => x.setAttribute("aria-pressed", x === b));
