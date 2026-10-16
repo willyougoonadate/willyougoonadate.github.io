@@ -532,8 +532,13 @@ function wireNo() {
       }
       if (best) { nx = best.x; ny = best.y; }
     }
+    // If the slide would pass over the yes button, jump there instead of gliding.
+    let crosses = false;
+    for (let t = 0.1; t < 1 && !crosses; t += 0.1) crosses = hitsYes(pos.x + (nx - pos.x) * t, pos.y + (ny - pos.y) * t);
+    if (crosses) { no.style.transition = "none"; }
     pos = { x: nx, y: ny };
     no.style.left = nx + "px"; no.style.top = ny + "px";
+    if (crosses) { void no.offsetWidth; no.style.transition = ""; }
     tease();
   };
 
