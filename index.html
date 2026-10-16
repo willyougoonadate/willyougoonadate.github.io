@@ -452,9 +452,9 @@ function render() {
 }
 
 function statusText() {
-  if (state.sent === "ok") return "✓ got it, and it's already in my calendar";
+  if (state.sent === "ok") return "locked in 🔒 see you then 🩷";
   if (state.sent === "fail") return "oops, that didn't go through 🙈 take a screenshot and send it to me";
-  return "sending it to me…";
+  return "sealing the envelope…";
 }
 
 // Sends the booking once to the private ntfy topic; the home server picks it up
