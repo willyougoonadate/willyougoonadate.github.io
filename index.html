@@ -517,6 +517,21 @@ function wireNo() {
       nx = px < window.innerWidth / 2 ? maxX : PAD;
       ny = py < window.innerHeight / 2 ? maxY : PAD;
     }
+    // Never land on (or right next to) the yes button: pick another free spot away from the pointer.
+    const yr = yes.getBoundingClientRect(), GAP = 18;
+    const hitsYes = (x, y) => x < yr.right + GAP && x + w > yr.left - GAP && y < yr.bottom + GAP && y + h > yr.top - GAP;
+    if (hitsYes(nx, ny)) {
+      let best = null, bestDist = -1;
+      for (let i = 0; i < 60; i++) {
+        const x = PAD + Math.random() * Math.max(0, maxX - PAD);
+        const y = PAD + Math.random() * Math.max(0, maxY - PAD);
+        if (hitsYes(x, y)) continue;
+        const d = Math.hypot(x + w / 2 - px, y + h / 2 - py);
+        if (d > bestDist) { best = { x, y }; bestDist = d; }
+        if (d > RADIUS * 1.5) break;
+      }
+      if (best) { nx = best.x; ny = best.y; }
+    }
     pos = { x: nx, y: ny };
     no.style.left = nx + "px"; no.style.top = ny + "px";
     tease();
