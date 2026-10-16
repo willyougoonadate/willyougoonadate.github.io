@@ -1,10 +1,25 @@
 <!doctype html>
-<html lang="da">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<title>Vil du på date?</title>
+<meta name="description" content="it'll only take a minute">
+<meta property="og:type" content="website">
+<meta property="og:title" content="I have a question for you 💌">
+<meta property="og:description" content="it'll only take a minute">
+<meta property="og:url" content="https://willyougoonadate.github.io/">
+<meta property="og:image" content="https://willyougoonadate.github.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A pink card that says: I have a question for you">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="I have a question for you 💌">
+<meta name="twitter:description" content="it'll only take a minute">
+<meta name="twitter:image" content="https://willyougoonadate.github.io/og.png">
+<meta name="theme-color" content="#fdf0f2">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E💌%3C/text%3E%3C/svg%3E">
+<title>I have a question for you 💌</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..600,100&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap">
@@ -182,7 +197,7 @@ select.field { background-image: linear-gradient(45deg, transparent 50%, var(--m
 </div>
 
 <script>
-// Ret teksterne her for at personliggøre siden.
+// Edit the texts here to personalise the page.
 const CONFIG = {
   // Hours offered per day type, in half-hour steps (end included).
   weekdayHours: [17, 21],
@@ -192,39 +207,39 @@ const CONFIG = {
   // Ids and option names must match KATEGORIER in date-bro.js on the server.
   kinds: {
     mad: {
-      emo: "🍽️", name: "Mad", note: "vi spiser noget godt",
-      question: "hvad er vi i humør til? 🍽️✨", sub: "vælg din vibe (der er ingen forkerte svar. undtagen ingenting)",
+      emo: "🍽️", name: "Food", note: "we eat something good",
+      question: "what are we feeling? 🍽️✨", sub: "pick your vibe (there are no wrong answers. except nothing)",
       options: [
-        { emo: "🍕", name: "Pizza" }, { emo: "🍣", name: "Sushi" }, { emo: "🍔", name: "Burgere" },
+        { emo: "🍕", name: "Pizza" }, { emo: "🍣", name: "Sushi" }, { emo: "🍔", name: "Burgers" },
         { emo: "🍝", name: "Pasta" }, { emo: "🌮", name: "Tacos" }, { emo: "🍜", name: "Ramen" }
       ]
     },
     aktivitet: {
-      emo: "🎳", name: "Aktivitet", note: "vi laver noget sjovt",
-      question: "hvad skal vi finde på? 🎳", sub: "jeg advarer: jeg er konkurrencemenneske",
+      emo: "🎳", name: "Activity", note: "we do something fun",
+      question: "what are we getting up to? 🎳", sub: "fair warning: I'm competitive",
       options: [
-        { emo: "⛳", name: "Minigolf" }, { emo: "🎳", name: "Bowling" }, { emo: "☕", name: "Gåtur & kaffe" },
-        { emo: "🖼️", name: "Museum" }, { emo: "⛸️", name: "Skøjter" }, { emo: "🔐", name: "Escape room" }
+        { emo: "⛳", name: "Mini golf" }, { emo: "🎳", name: "Bowling" }, { emo: "☕", name: "Walk & coffee" },
+        { emo: "🖼️", name: "Museum" }, { emo: "⛸️", name: "Ice skating" }, { emo: "🔐", name: "Escape room" }
       ]
     },
     film: {
-      emo: "🎬", name: "Movie night", note: "film og snacks",
-      question: "hvilken slags film? 🍿", sub: "jeg står for snacks",
+      emo: "🎬", name: "Movie night", note: "a film and snacks",
+      question: "what kind of movie? 🍿", sub: "I'm on snack duty",
       options: [
-        { emo: "💕", name: "Romcom" }, { emo: "👻", name: "Gyser" }, { emo: "💥", name: "Action" },
-        { emo: "😂", name: "Komedie" }, { emo: "🧸", name: "Animation" }, { emo: "🍿", name: "Du vælger" }
+        { emo: "💕", name: "Rom-com" }, { emo: "👻", name: "Horror" }, { emo: "💥", name: "Action" },
+        { emo: "😂", name: "Comedy" }, { emo: "🧸", name: "Animation" }, { emo: "🍿", name: "You pick" }
       ]
     }
   }
 };
 
 const NO_LINES = [
-  "hov", "forkert knap", "seriøst?", "nej er udsolgt", "knappen er på ferie 🏝️", "prøv den lyserøde", "🙈",
-  "okay nu er det bare pinligt", "nej (virker ikke)", "fang mig hvis du kan", "for langsom 🐌", "nope",
-  "er du sikker?", "helt sikker??", "tænk dig om", "jeg flytter mig bare", "du gætter forkert",
-  "404 nej ikke fundet", "prøv igen om 100 år", "tsk tsk", "nej tak til nej", "😤", "jeg er hurtigere end dig",
-  "jeg kan gøre det her hele dagen", "ja-knappen savner dig", "glem det", "hvorfor er du sådan", "nej er ikke en mulighed",
-  "nice try", "lol nej", "📵 knap ikke tilgængelig", "jeg løber altså"
+  "nope", "wrong button", "seriously?", "no is sold out", "this button is on vacation 🏝️", "try the pink one", "🙈",
+  "ok this is getting awkward", "no (out of order)", "catch me if you can", "too slow 🐌", "nah",
+  "are you sure?", "like, really sure??", "think about it", "I'm just gonna move", "wrong guess",
+  "404 no not found", "try again in 100 years", "tsk tsk", "no to no", "😤", "I'm faster than you",
+  "I can do this all day", "the yes button misses you", "forget it", "why are you like this", "no is not an option",
+  "nice try", "lol no", "📵 button unavailable", "I'm literally running"
 ];
 const RANDOM_EMOJI = ["🧽", "🪑", "🧦", "🪣", "🧸", "🪀", "🧲", "🪥", "🧻", "🪴", "🎈", "🧯", "🔦", "🧺", "🪞", "📎", "🧢", "🪩", "🛟", "🪜"];
 const state = { step: "ask", date: "", time: "", kind: "", pick: "", sent: "", noCount: 0 };
@@ -248,7 +263,7 @@ function timesFor(iso) {
 function prettyDate(iso) {
   if (!iso) return "";
   const [y, m, d] = iso.split("-").map(Number);
-  return new Date(y, m - 1, d).toLocaleDateString("da-DK", { weekday: "long", day: "numeric", month: "long" });
+  return new Date(y, m - 1, d).toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
 }
 
 // Ambient petals and hearts
@@ -286,8 +301,8 @@ function clearLooseNo() { document.querySelectorAll(".btn-no.loose").forEach(b =
 const STAMPS = { ask: "♥", yay: "!", when: "?", kind: "✦", pick: "✧", done: "✓", booked: "♥" };
 function head() {
   return `<div class="letterhead" aria-hidden="true">
-    <div>fra <b>mig</b><br>til <b>dig</b> ♡</div>
-    <div class="stamp">${STAMPS[state.step] || "♥"}<small>porto</small></div>
+    <div>from <b>me</b><br>to <b>you</b> ♡</div>
+    <div class="stamp">${STAMPS[state.step] || "♥"}<small>post</small></div>
   </div>`;
 }
 
@@ -317,7 +332,7 @@ function addBack() {
   const to = BACK[state.step];
   if (!to) return;
   const b = document.createElement("button");
-  b.type = "button"; b.className = "link-btn"; b.textContent = "← tilbage";
+  b.type = "button"; b.className = "link-btn"; b.textContent = "← back";
   b.onclick = () => { state.step = to; render(); };
   app.appendChild(b);
 }
@@ -333,10 +348,10 @@ function render() {
   if (s === "ask") {
     app.innerHTML = head() + `
       <div class="tile" aria-hidden="true">🐶</div>
-      <h1>vil du gå på <em>date</em> med mig?</h1>
+      <h1>will you go on a <em>date</em> with me?</h1>
       <div class="answers">
-        <button class="btn btn-yes" id="yes" type="button">JA ♥</button>
-        <button class="btn btn-no" id="no" type="button">nej</button>
+        <button class="btn btn-yes" id="yes" type="button">YES ♥</button>
+        <button class="btn btn-no" id="no" type="button">no</button>
       </div>`;
     wireNo();
     document.getElementById("yes").onclick = () => { state.step = "yay"; confetti(); render(); };
@@ -345,8 +360,8 @@ function render() {
   else if (s === "yay") {
     app.innerHTML = head() + `
       <div class="tile hot" aria-hidden="true">${RANDOM_EMOJI[Math.floor(Math.random() * RANDOM_EMOJI.length)]}</div>
-      <h1 class="shout">Vent, sagde du faktisk ja?? 😭</h1>
-      <p>jeg havde ærligt talt forberedt mig på et nej 😅</p>
+      <h1 class="shout">wait, did you actually say yes?? 😭</h1>
+      <p>honestly, I was fully prepared for a no 😅</p>
       <button class="btn deep" id="go" type="button">okay okay! →</button>`;
     document.getElementById("go").onclick = () => { state.step = "when"; render(); };
   }
@@ -354,22 +369,22 @@ function render() {
   else if (s === "when") {
     app.innerHTML = head() + `
       <div class="tile plain" aria-hidden="true">🗓️</div>
-      <h1>så… hvornår er du fri?</h1>
+      <h1>so… when are you free?</h1>
       <form id="whenForm">
-        <label for="date">Vælg en dag 📆
+        <label for="date">Pick a day 📆
           <input class="field" type="date" id="date" min="${tomorrowISO()}" value="${esc(state.date)}" required>
         </label>
-        <label for="time">Hvad tid? ⏰
+        <label for="time">What time? ⏰
           <select class="field" id="time" required></select>
         </label>
-        <button class="btn wide" id="setDate" type="submit" disabled>sæt datoen! ♥</button>
+        <button class="btn wide" id="setDate" type="submit" disabled>set the date! ♥</button>
       </form>`;
     const date = document.getElementById("date"), time = document.getElementById("time"), btn = document.getElementById("setDate");
     const fillTimes = () => {
       const keep = time.value || state.time;
       const opts = timesFor(date.value);
       time.disabled = !opts.length;
-      time.innerHTML = `<option value="">${opts.length ? "Vælg et tidspunkt…" : "Vælg en dag først"}</option>` +
+      time.innerHTML = `<option value="">${opts.length ? "Pick a time…" : "Pick a day first"}</option>` +
         opts.map(t => `<option value="${t}" ${keep === t ? "selected" : ""}>${t}</option>`).join("");
     };
     const check = () => { btn.disabled = !(date.value && time.value); };
@@ -385,8 +400,8 @@ function render() {
 
   else if (s === "kind") {
     app.innerHTML = head() + `
-      <h1>hvad skal vi lave? ✨</h1>
-      <p>vælg en retning, så tager vi detaljerne bagefter</p>
+      <h1>what should we do? ✨</h1>
+      <p>pick a direction, we'll sort out the details after</p>
       <div class="foods kinds">
         ${Object.entries(CONFIG.kinds).map(([id, k]) => `<button type="button" class="food" data-kind="${id}" aria-pressed="${state.kind === id}"><span>${k.emo}</span>${esc(k.name)}<small>${esc(k.note)}</small></button>`).join("")}
       </div>`;
@@ -415,9 +430,9 @@ function render() {
 
   else if (s === "done") {
     app.innerHTML = head() + `
-      <h1>godt du ikke sagde nej. vær klar kl. ${esc(state.time)}, jeg henter dig 🚗</h1>
+      <h1>glad you didn't say no. be ready at ${esc(state.time)}, I'm coming to get you 🚗</h1>
       <div class="hearts" aria-hidden="true">♥♥♥♥♥</div>
-      <button class="btn wide" id="accept" type="button">ok, jeg accepterer 💝</button>`;
+      <button class="btn wide" id="accept" type="button">ok, I accept 💝</button>`;
     document.getElementById("accept").onclick = () => { state.step = "booked"; confetti(110); render(); sendBooking(); };
   }
 
@@ -426,10 +441,10 @@ function render() {
     const o = k.options.find(x => x.name === state.pick);
     app.innerHTML = head() + `
       <div class="tile" aria-hidden="true">💌</div>
-      <h1>det er officielt en <em>date</em></h1>
+      <h1>it's officially a <em>date</em></h1>
       <div class="receipt">
         <div>📅 <b>${esc(prettyDate(state.date))}</b></div>
-        <div>⏰ <b>kl. ${esc(state.time)}</b></div>
+        <div>⏰ <b>at ${esc(state.time)}</b></div>
         <div>${o ? o.emo : k.emo} <b>${esc(k.name)}: ${esc(state.pick)}</b></div>
       </div>
       <p id="sendStatus">${statusText()}</p>`;
@@ -437,9 +452,9 @@ function render() {
 }
 
 function statusText() {
-  if (state.sent === "ok") return "✓ jeg har fået besked, og den står allerede i min kalender";
-  if (state.sent === "fail") return "hov, beskeden kom ikke igennem 🙈 tag et screenshot og send det til mig";
-  return "sender til mig…";
+  if (state.sent === "ok") return "✓ got it, and it's already in my calendar";
+  if (state.sent === "fail") return "oops, that didn't go through 🙈 take a screenshot and send it to me";
+  return "sending it to me…";
 }
 
 // Sends the booking once to the private ntfy topic; the home server picks it up
