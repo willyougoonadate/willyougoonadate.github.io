@@ -82,10 +82,11 @@ body::before {
   background: linear-gradient(160deg, #ffd6df, #f6b8c7); color: #fff;
   display: grid; place-items: center; align-content: center; gap: 1px;
   font: 600 20px var(--display); letter-spacing: 0;
-  border-radius: 6px;
+  border-radius: 8px;
   transform: rotate(5deg);
-  -webkit-mask: radial-gradient(circle 3.5px at 3.5px 3.5px, transparent 98%, #000) -3.5px -3.5px / 8.5px 8.5px;
-          mask: radial-gradient(circle 3.5px at 3.5px 3.5px, transparent 98%, #000) -3.5px -3.5px / 8.5px 8.5px;
+  outline: 2px dashed rgba(255, 255, 255, .85);
+  outline-offset: -6px;
+  box-shadow: 0 6px 14px -6px rgba(230, 140, 165, .6);
 }
 .stamp small { font: 700 8px var(--body); letter-spacing: .12em; text-transform: uppercase; opacity: .9; }
 
