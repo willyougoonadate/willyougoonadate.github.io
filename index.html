@@ -174,6 +174,7 @@ select.field { background-image: linear-gradient(45deg, transparent 50%, var(--m
 
 .hearts { color: var(--rose); letter-spacing: .5em; font-size: 18px; }
 .receipt { width: 100%; background: #fff6f8; border-radius: 22px; padding: 16px 18px; display: grid; gap: 8px; font-size: 15px; color: var(--muted); box-sizing: border-box; }
+.hint { margin: -8px 0 0; padding-left: 6px; font-size: 13px; color: var(--rose-deep); }
 .receipt b { color: var(--ink); font-weight: 700; }
 .wrap { display: grid; justify-items: center; width: 100%; }
 
@@ -251,6 +252,14 @@ function tomorrowISO() {
   const p = n => String(n).padStart(2, "0");
   return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
 }
+function maxISO() {
+  const d = new Date(); d.setDate(d.getDate() + 90);
+  const p = n => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+}
+// iPhone Safari ignores min/max in its date picker, so the window is checked here too.
+// ISO dates compare correctly as strings.
+function dateOk(iso) { return !!iso && iso >= tomorrowISO() && iso <= maxISO(); }
 function timesFor(iso) {
   if (!iso) return [];
   const [y, m, d] = iso.split("-").map(Number);
@@ -372,8 +381,9 @@ function render() {
       <h1>so… when are you free?</h1>
       <form id="whenForm">
         <label for="date">Pick a day 📆
-          <input class="field" type="date" id="date" min="${tomorrowISO()}" value="${esc(state.date)}" required>
+          <input class="field" type="date" id="date" min="${tomorrowISO()}" max="${maxISO()}" value="${esc(state.date)}" required>
         </label>
+        <p class="hint" id="dateHint" hidden>pick a day from tomorrow on 🙂</p>
         <label for="time">What time? ⏰
           <select class="field" id="time" required></select>
         </label>
@@ -382,18 +392,20 @@ function render() {
     const date = document.getElementById("date"), time = document.getElementById("time"), btn = document.getElementById("setDate");
     const fillTimes = () => {
       const keep = time.value || state.time;
-      const opts = timesFor(date.value);
+      const ok = dateOk(date.value);
+      document.getElementById("dateHint").hidden = !date.value || ok;
+      const opts = ok ? timesFor(date.value) : [];
       time.disabled = !opts.length;
       time.innerHTML = `<option value="">${opts.length ? "Pick a time…" : "Pick a day first"}</option>` +
         opts.map(t => `<option value="${t}" ${keep === t ? "selected" : ""}>${t}</option>`).join("");
     };
-    const check = () => { btn.disabled = !(date.value && time.value); };
-    date.oninput = () => { fillTimes(); check(); };
+    const check = () => { btn.disabled = !(dateOk(date.value) && time.value); };
+    date.oninput = date.onchange = () => { fillTimes(); check(); };
     time.onchange = check;
     fillTimes(); check();
     document.getElementById("whenForm").onsubmit = e => {
       e.preventDefault();
-      if (!date.value || !time.value) return;
+      if (!dateOk(date.value) || !timesFor(date.value).includes(time.value)) return;
       state.date = date.value; state.time = time.value; state.step = "kind"; render();
     };
   }
@@ -508,6 +520,10 @@ function wireNo() {
     let next;
     do { next = NO_LINES[Math.floor(Math.random() * NO_LINES.length)]; } while (next === no.textContent);
     no.textContent = next;
+    if (pos) {
+      pos.x = Math.max(PAD, Math.min(pos.x, window.innerWidth - no.offsetWidth - PAD));
+      no.style.left = pos.x + "px";
+    }
   };
 
   const flee = (px, py, force) => {
