@@ -1,2 +1,19 @@
+# Link-preview bots may read the page so shared links show the card.
+User-agent: facebookexternalhit
+User-agent: Facebot
+User-agent: meta-externalagent
+User-agent: meta-externalfetcher
+User-agent: Instagram
+User-agent: WhatsApp
+User-agent: TelegramBot
+User-agent: Twitterbot
+User-agent: Snapchat
+User-agent: Discordbot
+User-agent: Slackbot
+User-agent: LinkedInBot
+User-agent: Applebot
+Allow: /
+
+# Everyone else (search engines) stays out; the page also carries noindex.
 User-agent: *
 Disallow: /
